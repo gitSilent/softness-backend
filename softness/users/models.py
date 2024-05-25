@@ -49,3 +49,4 @@ class FavoriteItem(models.Model):
         verbose_name = "Избранное пользователя"
         verbose_name_plural = "Избранное пользователей"
         unique_together = ('user', 'product')
+

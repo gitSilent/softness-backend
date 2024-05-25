@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
+from cart.views import CartAPIView, CartItemIncreaseAPIView, CartItemDecreaseAPIView, CartItemAPIView
 from products.views import ProductsAPIView, ProductAPIView
 
 from rest_framework_simplejwt.views import (
@@ -31,6 +32,13 @@ urlpatterns = [
 
     path('api/v1/products/', ProductsAPIView.as_view()),
     path('api/v1/products/<int:pk>', ProductAPIView.as_view()),
+
+    path('api/v1/cart/', CartAPIView.as_view()),
+    path('api/v1/cartitem/<int:cart_item_id>', CartItemAPIView.as_view()),
+    path('api/v1/cartitem/increase/<int:cart_item_id>', CartItemIncreaseAPIView.as_view()),
+    path('api/v1/cartitem/decrease/<int:cart_item_id>', CartItemDecreaseAPIView.as_view()),
+
+
 
     path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

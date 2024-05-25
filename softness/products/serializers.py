@@ -19,3 +19,10 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields="__all__"
+
+# class ProductShortSerializer(serializers.ModelSerializer):
+#     category = CategorySerializer()
+#     photos = ProductPhotoSerializer(many=True)
+#     class Meta:
+#         model = Product
+#         fields=["id", "photos", "title"]
