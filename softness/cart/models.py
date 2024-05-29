@@ -19,7 +19,7 @@ class Cart(models.Model):
 
     @property
     def total(self):
-        return sum([item.amount * item.toy.cost for item in self.items.all()])
+        return sum([item.amount * item.product.price for item in self.items.all()])
 
     @property
     def items(self):

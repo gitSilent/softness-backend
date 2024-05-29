@@ -27,6 +27,10 @@ class AddCartItemSerializer(serializers.ModelSerializer):
 
 class CartSerializer(serializers.ModelSerializer):
     items = CartItemSerializer(many=True)
+    total = serializers.SerializerMethodField()
     class Meta:
         model = Cart
         fields = "__all__"
+
+    def get_total(self, obj):
+        return obj.total

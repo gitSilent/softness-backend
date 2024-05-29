@@ -8,12 +8,12 @@ from rest_framework.views import APIView
 from cart.models import Cart, CartItem
 from cart.serializers import CartSerializer, CartItemSerializer, AddCartItemSerializer
 from products.models import Product
-
+from users.permissions import IsOwner
 
 # Create your views here.
 
 class CartAPIView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
 
     def get(self, request, *args, **kwargs):
         # print(request.user.pk)
@@ -45,6 +45,8 @@ class CartAPIView(APIView):
 
 
 class CartItemIncreaseAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
+
     def get_object(self, pk):
         try:
             return CartItem.objects.get(pk=pk)
@@ -60,6 +62,8 @@ class CartItemIncreaseAPIView(APIView):
 
 
 class CartItemDecreaseAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
+
     def get_object(self, pk):
         try:
             return CartItem.objects.get(pk=pk)
@@ -79,11 +83,13 @@ class CartItemDecreaseAPIView(APIView):
 
 
 class CartItemAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
+
     def get_object(self, pk):
         try:
-            print(CartItem.objects.all())
-            print(CartItem.objects.get(pk=pk))
-            return CartItem.objects.get(pk=pk)
+            item = CartItem.objects.get(pk=pk)
+            self.check_object_permissions(self.request, item.cart)
+            return item
         except ObjectDoesNotExist:
             raise Http404
 

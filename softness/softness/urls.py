@@ -27,18 +27,25 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView, TokenVerifyView,
 )
 
+from users.views import UserAPIView, CityAPIView, CitiesAPIView, FavoriteListAPIView, FavoriteListItemAPIView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('api/v1/products/', ProductsAPIView.as_view()),
-    path('api/v1/products/<int:pk>', ProductAPIView.as_view()),
+    path('api/v1/products/<int:pk>/', ProductAPIView.as_view()),
 
     path('api/v1/cart/', CartAPIView.as_view()),
-    path('api/v1/cartitem/<int:cart_item_id>', CartItemAPIView.as_view()),
-    path('api/v1/cartitem/increase/<int:cart_item_id>', CartItemIncreaseAPIView.as_view()),
-    path('api/v1/cartitem/decrease/<int:cart_item_id>', CartItemDecreaseAPIView.as_view()),
+    path('api/v1/cartitem/<int:cart_item_id>/', CartItemAPIView.as_view()),
+    path('api/v1/cartitem/increase/<int:cart_item_id>/', CartItemIncreaseAPIView.as_view()),
+    path('api/v1/cartitem/decrease/<int:cart_item_id>/', CartItemDecreaseAPIView.as_view()),
 
+    path('api/v1/cities/', CitiesAPIView.as_view()),
+    path('api/v1/cities/<int:pk>', CityAPIView.as_view()),
+    path('api/v1/userinfo/', UserAPIView.as_view()),
 
+    path('api/v1/favoritelist/', FavoriteListAPIView.as_view()),
+    path('api/v1/favoritelist/<int:pk>', FavoriteListItemAPIView.as_view()),
 
     path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

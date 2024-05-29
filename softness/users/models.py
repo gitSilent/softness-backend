@@ -33,20 +33,45 @@ class User(AbstractUser):
     def __str__(self):
         return super().username
 
-class FavoriteItem(models.Model):
-    user = models.ForeignKey(
+class FavoriteList(models.Model):
+    user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
-        related_name="users_favorite"
+        related_name="user_favoritelist"
     )
+
+    def __str__(self):
+        return f'Избранное пользователя {self.user.username}'
+
+    @property
+    def items(self):
+        return self.favoritelist_items.all()
+
+    class Meta:
+        verbose_name = "Список избранного у пользователя"
+        verbose_name_plural = "Списки избранного у пользователя"
+        # unique_together = ('favoritelist', 'product')
+
+class FavoriteItem(models.Model):
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
         related_name="products_favorite"
     )
+    favoritelist = models.ForeignKey(
+        FavoriteList,
+        on_delete=models.CASCADE,
+        related_name="favoritelist_items",
+        null=True
+    )
+
+    def user_username(self):
+        return self.favoritelist.user.username
+    def __str__(self):
+        return f'Товар в избранном "{self.product.title}"'
 
     class Meta:
-        verbose_name = "Избранное пользователя"
-        verbose_name_plural = "Избранное пользователей"
-        unique_together = ('user', 'product')
+        verbose_name = "Товар в избранном пользователя"
+        verbose_name_plural = "Товары в избранном пользователя"
+        unique_together = ('favoritelist', 'product')
 
