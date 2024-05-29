@@ -15,7 +15,7 @@ from .serializers import ProductSerializer
 
 
 class ProductsAPIView(ListAPIView):
-    # permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.py.IsAuthenticated]
 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer

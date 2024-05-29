@@ -81,6 +81,8 @@ class CartItemDecreaseAPIView(APIView):
 class CartItemAPIView(APIView):
     def get_object(self, pk):
         try:
+            print(CartItem.objects.all())
+            print(CartItem.objects.get(pk=pk))
             return CartItem.objects.get(pk=pk)
         except ObjectDoesNotExist:
             raise Http404
