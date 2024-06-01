@@ -20,6 +20,7 @@ from django.contrib import admin
 from django.urls import path
 
 from cart.views import CartAPIView, CartItemIncreaseAPIView, CartItemDecreaseAPIView, CartItemAPIView
+from orders.views import OrdersAPIView
 from products.views import ProductsAPIView, ProductAPIView
 
 from rest_framework_simplejwt.views import (
@@ -46,6 +47,8 @@ urlpatterns = [
 
     path('api/v1/favoritelist/', FavoriteListAPIView.as_view()),
     path('api/v1/favoritelist/<int:pk>', FavoriteListItemAPIView.as_view()),
+
+    path('api/v1/orders/', OrdersAPIView.as_view()),
 
     path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

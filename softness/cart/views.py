@@ -23,7 +23,7 @@ class CartAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
         # product_id = self.request.query_params.get("product_id")
-        product_id = self.request.data.get("product")
+        product_id = self.request.data.get("product_id")
         cart = Cart.objects.get(user=request.user)
         if product_id is None:
             return Response("product_id обязателен", status=status.HTTP_400_BAD_REQUEST)
