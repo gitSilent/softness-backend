@@ -1,6 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import render
+from drf_spectacular.utils import extend_schema
 from rest_framework import status, permissions
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
@@ -34,6 +35,11 @@ class ProductsAPIView(ListAPIView):
             qs = qs.filter(price__lte=max_price)
         return qs
 
+    @extend_schema(
+        request=None,
+        responses={200: ProductSerializer},
+        tags=['products']
+    )
     def get(self, request, *args, **kwargs):
         qs = self.get_queryset()
         page = self.paginate_queryset(qs)
@@ -46,6 +52,7 @@ class ProductsAPIView(ListAPIView):
 
         serializer = ProductSerializer(qs, many=True)
         return Response(serializer.data)
+
 class ProductAPIView(APIView):
     def get_object(self, pk):
         try:
@@ -55,6 +62,11 @@ class ProductAPIView(APIView):
         except ObjectDoesNotExist:
             raise Http404
 
+    @extend_schema(
+        request=None,
+        responses={200: ProductSerializer},
+        tags=['products']
+    )
     def get(self,request, pk):
         product = self.get_object(pk)
         serializer = ProductSerializer(product)

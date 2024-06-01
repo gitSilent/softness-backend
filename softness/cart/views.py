@@ -1,6 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import render
+from drf_spectacular.utils import extend_schema
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -15,12 +16,24 @@ from users.permissions import IsOwner
 class CartAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated, IsOwner]
 
+    @extend_schema(
+        request=None,
+        responses={200: CartSerializer},
+        tags=['cart']
+    )
     def get(self, request, *args, **kwargs):
         # print(request.user.pk)
         cart = Cart.objects.get(user__pk=request.user.pk)
         serializer = CartSerializer(cart)
         return Response(serializer.data)
 
+    @extend_schema(
+        request=AddCartItemSerializer,
+        responses={
+            200: None,
+            400: None},
+        tags=['cart']
+    )
     def post(self, request, *args, **kwargs):
         # product_id = self.request.query_params.get("product_id")
         product_id = self.request.data.get("product_id")
@@ -53,6 +66,13 @@ class CartItemIncreaseAPIView(APIView):
         except ObjectDoesNotExist:
             raise Http404
 
+    @extend_schema(
+        request=None,
+        responses={
+            204: None,
+        },
+        tags=['cart']
+    )
     def put(self, request, cart_item_id, *args, **kwargs):
         item = self.get_object(pk=cart_item_id)
         item.amount = item.amount + 1
@@ -70,6 +90,13 @@ class CartItemDecreaseAPIView(APIView):
         except ObjectDoesNotExist:
             raise Http404
 
+    @extend_schema(
+        request=None,
+        responses={
+            204: None,
+        },
+        tags=['cart'],
+    )
     def put(self, request, cart_item_id, *args, **kwargs):
         item = self.get_object(pk=cart_item_id)
         if (item.amount - 1) <= 0:
@@ -93,11 +120,21 @@ class CartItemAPIView(APIView):
         except ObjectDoesNotExist:
             raise Http404
 
+    @extend_schema(
+        request=None,
+        responses=CartItemSerializer,
+        tags=['cart'],)
     def get(self, request, cart_item_id, *args, **kwargs):
         item = self.get_object(pk=cart_item_id)
         serializer = CartItemSerializer(item)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+    @extend_schema(
+        request=None,
+        responses={
+            204: None,
+        },
+        tags=['cart'], )
     def delete(self, request, cart_item_id, *args, **kwargs):
         item = self.get_object(pk=cart_item_id)
         item.delete()

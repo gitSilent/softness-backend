@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from products.models import Product
 from products.serializers import ProductSerializer
 from users.models import User, City, FavoriteItem, FavoriteList
 
@@ -23,6 +24,13 @@ class FavoriteItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = FavoriteItem
         fields = "__all__"
+
+
+class AddFavoriteItemSerializer(serializers.ModelSerializer):
+    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all(),)
+    class Meta:
+        model = FavoriteItem
+        fields = ("product",)
 
 class FavoriteListSerializer(serializers.ModelSerializer):
     items = FavoriteItemSerializer(many=True)
