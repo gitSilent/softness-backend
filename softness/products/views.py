@@ -45,7 +45,7 @@ class ProductsAPIView(ListAPIView):
 
         page = self.paginate_queryset(qs)
         if page is not None:
-            serializer = self.get_serializer(page, many=True)
+            serializer = self.get_serializer(page, many=True, context={'request': request})
             response = self.get_paginated_response(serializer.data)
 
             response.data['total_pages'] = response.data['count'] // self.pagination_class.page_size + (
@@ -71,6 +71,6 @@ class ProductAPIView(APIView):
     )
     def get(self,request, pk):
         product = self.get_object(pk)
-        serializer = ProductSerializer(product)
+        serializer = ProductSerializer(product, context={'request': request})
         return Response(serializer.data)
 

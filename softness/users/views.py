@@ -2,14 +2,15 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import render
 from drf_spectacular.utils import extend_schema
-from rest_framework import status, permissions
+from rest_framework import status, permissions, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from products.models import Product
 from users.models import User, City, FavoriteItem, FavoriteList
 from users.permissions import IsOwner
-from users.serializers import UserSerializer, CitySerializer, FavoriteListSerializer, AddFavoriteItemSerializer
+from users.serializers import UserSerializer, CitySerializer, FavoriteListSerializer, AddFavoriteItemSerializer, \
+    RegisterSerializer
 
 
 # Create your views here.
@@ -66,7 +67,9 @@ class UserAPIView(APIView):
         serialiazer = UserSerializer(user)
         return Response(data=serialiazer.data, status=status.HTTP_200_OK)
 
-
+class RegisterView(generics.CreateAPIView):
+    serializer_class = RegisterSerializer
+    permission_classes = [permissions.AllowAny]
 
 class FavoriteListAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated, IsOwner]
@@ -84,8 +87,8 @@ class FavoriteListAPIView(APIView):
         tags=['users']
     )
     def get(self, request):
-        list = FavoriteList.objects.filter(user=request.user.pk)
-        serializer = FavoriteListSerializer(list, many=True)
+        list = FavoriteList.objects.get(user=request.user.pk)
+        serializer = FavoriteListSerializer(list, context={'request': request})
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(

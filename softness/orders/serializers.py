@@ -12,6 +12,9 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
+    total = serializers.SerializerMethodField()
+    def get_total(self, obj):
+        return obj.total
     class Meta:
         model = Order
         fields = "__all__"

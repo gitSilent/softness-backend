@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad3f7409-6d8f-433d-ac79-df462fb247cc" name="Changes" comment="swagger init">
+    <list default="true" id="ad3f7409-6d8f-433d-ac79-df462fb247cc" name="Changes" comment="in_favorite added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/softness/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/softness/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/softness/orders/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/softness/orders/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/softness/products/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/softness/products/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/softness/products/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/softness/products/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/softness/products/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/softness/products/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/softness/softness/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/softness/softness/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/softness/softness/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/softness/softness/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/softness/users/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/softness/users/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/softness/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/softness/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +65,7 @@
       <workItem from="1716982446323" duration="16852000" />
       <workItem from="1717241896901" duration="838000" />
       <workItem from="1717252931675" duration="17659000" />
-      <workItem from="1717324031281" duration="818000" />
+      <workItem from="1717324031281" duration="19740000" />
     </task>
     <task id="LOCAL-00001" summary="init project">
       <option name="closed" value="true" />
@@ -148,7 +155,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717276795394</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="in_favorite added">
+      <option name="closed" value="true" />
+      <created>1717325039876</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1717325039876</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,6 +191,7 @@
     <MESSAGE value="favorite list init" />
     <MESSAGE value="orders init" />
     <MESSAGE value="swagger init" />
-    <option name="LAST_COMMIT_MESSAGE" value="swagger init" />
+    <MESSAGE value="in_favorite added" />
+    <option name="LAST_COMMIT_MESSAGE" value="in_favorite added" />
   </component>
 </project>

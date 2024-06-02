@@ -34,7 +34,8 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView, TokenVerifyView,
 )
 
-from users.views import UserAPIView, CityAPIView, CitiesAPIView, FavoriteListAPIView, FavoriteListItemAPIView
+from users.views import UserAPIView, CityAPIView, CitiesAPIView, FavoriteListAPIView, FavoriteListItemAPIView, \
+    RegisterView
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -61,6 +62,8 @@ urlpatterns = [
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 
+    path('api/v1/register/', RegisterView.as_view()),
+
     path('api/v1/products/', ProductsAPIView.as_view()),
     path('api/v1/products/<int:pk>/', ProductAPIView.as_view()),
 
@@ -74,7 +77,7 @@ urlpatterns = [
     path('api/v1/userinfo/', UserAPIView.as_view()),
 
     path('api/v1/favoritelist/', FavoriteListAPIView.as_view()),
-    path('api/v1/favoritelist/<int:pk>', FavoriteListItemAPIView.as_view()),
+    path('api/v1/favoritelist/<int:pk>/', FavoriteListItemAPIView.as_view()),
 
     path('api/v1/orders/', OrdersAPIView.as_view()),
 

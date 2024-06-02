@@ -55,6 +55,26 @@ class Product(models.Model):
         verbose_name="Категория",
         on_delete=models.CASCADE
     )
+    filler = models.CharField(
+        verbose_name="Наполнитель",
+        max_length=100,
+        null=True
+    )
+    material = models.CharField(
+        verbose_name="Материал вязки",
+        max_length=100,
+        null=True
+    )
+    knitting_type = models.CharField(
+        verbose_name="Тип вязки",
+        max_length=100,
+        null=True
+    )
+    is_hard_materials = models.BooleanField(
+        verbose_name="Элементы из жестких материалов",
+        null=True,
+        default=False
+    )
 
     class Meta:
         verbose_name = "Товар"

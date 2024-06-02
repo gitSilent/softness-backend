@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-5ojr#1z6(jh6go@urpix+l748qju&pe&xgisqud)=%97egyqam
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_spectacular',
+    'corsheaders',
 
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -56,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'softness.urls'
@@ -128,7 +131,7 @@ USE_TZ = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Настройки для медиа-файлов
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Путь к директории, где будут сохраняться медиа-файлы
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')  # Путь к директории, где будут сохраняться медиа-файлы
 MEDIA_URL = '/media/'  # URL-префикс для медиа-файлов
 
 STATIC_URL = 'static/'
@@ -142,7 +145,7 @@ AUTH_USER_MODEL = 'users.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 16,
+    'PAGE_SIZE': 3,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
