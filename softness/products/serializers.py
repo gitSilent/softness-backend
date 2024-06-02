@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from users.models import FavoriteItem
 from .models import Product, Category, ProductPhoto
 
 
@@ -16,9 +17,16 @@ class CategorySerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     photos = ProductPhotoSerializer(many=True)
+    in_favorite = serializers.SerializerMethodField()
     class Meta:
         model = Product
         fields="__all__"
+
+    def get_in_favorite(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            return FavoriteItem.objects.filter(product=obj, favoritelist__user=user).exists()
+        return False
 
 # class ProductShortSerializer(serializers.ModelSerializer):
 #     category = CategorySerializer()
