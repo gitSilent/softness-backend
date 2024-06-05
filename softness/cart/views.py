@@ -24,7 +24,7 @@ class CartAPIView(APIView):
     def get(self, request, *args, **kwargs):
         # print(request.user.pk)
         cart = Cart.objects.get(user__pk=request.user.pk)
-        serializer = CartSerializer(cart)
+        serializer = CartSerializer(cart, context={'request': request})
         return Response(serializer.data)
 
     @extend_schema(
