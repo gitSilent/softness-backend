@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
 from django.db import models
 
 from products.models import Product
@@ -20,6 +21,18 @@ class User(AbstractUser):
         on_delete=models.CASCADE,
         null=True, blank=True
     )
+
+    # phone_number = models.CharField(
+    #     verbose_name="Номер телефона",
+    #     max_length=15,
+    #     validators=[
+    #         RegexValidator(
+    #             regex=r'^\+?1?\d{9,15}$',
+    #             message="Номер телефона должен быть в формате: '+999999999'. Допускается до 15 цифр."
+    #         )
+    #     ],
+    #     null=True, blank=True
+    # )
 
     def save(self, *args, **kwargs):
         if self.pk is None and self.password:

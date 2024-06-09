@@ -21,6 +21,7 @@ from django.urls import path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 from cart.views import CartAPIView, CartItemIncreaseAPIView, CartItemDecreaseAPIView, CartItemAPIView
+from feedback.views import FeedbackAPIView
 from orders.views import OrdersAPIView
 from products.views import ProductsAPIView, ProductAPIView
 
@@ -78,6 +79,8 @@ urlpatterns = [
 
     path('api/v1/favoritelist/', FavoriteListAPIView.as_view()),
     path('api/v1/favoritelist/<int:pk>/', FavoriteListItemAPIView.as_view()),
+
+    path('api/v1/feedback/', FeedbackAPIView.as_view()),
 
     path('api/v1/orders/', OrdersAPIView.as_view()),
 
