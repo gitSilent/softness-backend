@@ -43,7 +43,8 @@ class Product(models.Model):
     old_price = models.IntegerField(
         verbose_name="Старая цена",
         help_text="В российских рублях",
-        null=True
+        null=True,
+        blank=True
     )
     price = models.IntegerField(
         verbose_name="Цена",
@@ -58,17 +59,20 @@ class Product(models.Model):
     filler = models.CharField(
         verbose_name="Наполнитель",
         max_length=100,
-        null=True
+        null=True,
+        blank=True
     )
     material = models.CharField(
         verbose_name="Материал вязки",
         max_length=100,
-        null=True
+        null=True,
+        blank=True
     )
     knitting_type = models.CharField(
         verbose_name="Тип вязки",
         max_length=100,
-        null=True
+        null=True,
+        blank=True
     )
     is_hard_materials = models.BooleanField(
         verbose_name="Элементы из жестких материалов",

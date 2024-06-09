@@ -1,4 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
+from django.db.models.functions import Lower
 from django.http import Http404
 from django.shortcuts import render
 from drf_spectacular.utils import extend_schema
@@ -24,6 +26,9 @@ class ProductsAPIView(ListAPIView):
 
     def get_queryset(self):
         qs = Product.objects.all()
+
+        # qs = qs.annotate(lowered_title=Lower('title'))
+
         if self.request.query_params.get("category"):
             category = self.request.query_params.get("category")
             qs = qs.filter(category__slug=category)
@@ -33,6 +38,12 @@ class ProductsAPIView(ListAPIView):
         if self.request.query_params.get("max_price"):
             max_price = self.request.query_params.get("max_price")
             qs = qs.filter(price__lte=max_price)
+        if self.request.query_params.get("name"):
+            name = self.request.query_params.get("name").lower()
+            qs = qs.filter(Q(title__icontains=name) | Q(title__icontains=name.capitalize()))
+        if self.request.query_params.get("sorting_value"):
+            sorting_value = self.request.query_params.get("sorting_value")
+            qs = qs.order_by((lambda sorting_value: "price" if sorting_value == "asc" else "-price")(sorting_value))
         return qs
 
     @extend_schema(

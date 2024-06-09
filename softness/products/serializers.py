@@ -22,6 +22,7 @@ class ProductSerializer(serializers.ModelSerializer):
     in_favorite = serializers.SerializerMethodField()
     in_cart = serializers.SerializerMethodField()
     fav_item_id = serializers.SerializerMethodField()
+    # lowered_title = serializers.SerializerMethodField()
     class Meta:
         model = Product
         fields="__all__"
@@ -48,6 +49,9 @@ class ProductSerializer(serializers.ModelSerializer):
                     return item.id
             except ObjectDoesNotExist:
                 return -1
+
+    # def get_lowered_title(self, obj):
+    #     return obj.lowered_title
 
 
 # class ProductShortSerializer(serializers.ModelSerializer):
