@@ -1,3 +1,5 @@
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
 from django.shortcuts import render
 from drf_spectacular.utils import extend_schema
 from rest_framework import status, permissions
@@ -44,4 +46,24 @@ class OrdersAPIView(APIView):
                 order=order).save()
         qs.delete()
         order.save()
-        return Response(status=200)
+        return Response({"order_id":order.id}, status=200)
+
+
+class OrderAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
+
+    @extend_schema(
+        request=None,
+        responses={
+            204: None,
+        },
+        tags=['orders'], )
+    def delete(self, request, pk):
+        try:
+            order = Order.objects.get(pk=pk)
+            self.check_object_permissions(self.request, order)
+            order.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except ObjectDoesNotExist:
+            raise Http404
+

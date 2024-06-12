@@ -12,6 +12,7 @@ class Order (models.Model):
         NEW = ("NW", "Новый")
         IN = ("IN", "В обработке")
         READY = ("RD", "Готов")
+        FINISHED = ("FN", "Завершен")
 
     user = models.ForeignKey(
         User,

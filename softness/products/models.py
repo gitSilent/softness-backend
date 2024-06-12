@@ -102,3 +102,12 @@ class ProductPhoto(models.Model):
     class Meta:
         verbose_name = "Фото товара"
         verbose_name_plural = "Фото товаров"
+
+class Work(models.Model):
+    photo = models.ImageField(
+        verbose_name="Фото работы",
+        upload_to="products/works"
+    )
+    class Meta:
+        verbose_name = "Фото работы"
+        verbose_name_plural = "Фото работ"

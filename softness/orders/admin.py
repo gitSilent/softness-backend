@@ -13,4 +13,5 @@ class OrderItemInline(admin.TabularInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderItemInline]
-    list_display = ('user',)  # Display the user field in the list view
+    list_display = ('id', 'user',)  # Display the user field in the list view
+    search_fields = ['id', 'user__username']

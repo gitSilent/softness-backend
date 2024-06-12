@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 from cart.models import CartItem
 from users.models import FavoriteItem
-from .models import Product, Category, ProductPhoto
+from .models import Product, Category, ProductPhoto, Work
 
 
 class ProductPhotoSerializer(serializers.ModelSerializer):
@@ -50,13 +50,8 @@ class ProductSerializer(serializers.ModelSerializer):
             except ObjectDoesNotExist:
                 return -1
 
-    # def get_lowered_title(self, obj):
-    #     return obj.lowered_title
 
-
-# class ProductShortSerializer(serializers.ModelSerializer):
-#     category = CategorySerializer()
-#     photos = ProductPhotoSerializer(many=True)
-#     class Meta:
-#         model = Product
-#         fields=["id", "photos", "title"]
+class WorksSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Work
+        fields = "__all__"

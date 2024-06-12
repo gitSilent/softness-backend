@@ -22,8 +22,8 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, Sp
 
 from cart.views import CartAPIView, CartItemIncreaseAPIView, CartItemDecreaseAPIView, CartItemAPIView
 from feedback.views import FeedbackAPIView
-from orders.views import OrdersAPIView
-from products.views import ProductsAPIView, ProductAPIView
+from orders.views import OrdersAPIView, OrderAPIView
+from products.views import ProductsAPIView, ProductAPIView, WorksAPIView
 
 from django.urls import re_path
 from rest_framework import permissions
@@ -68,6 +68,8 @@ urlpatterns = [
     path('api/v1/products/', ProductsAPIView.as_view()),
     path('api/v1/products/<int:pk>/', ProductAPIView.as_view()),
 
+    path('api/v1/works/', WorksAPIView.as_view()),
+
     path('api/v1/cart/', CartAPIView.as_view()),
     path('api/v1/cartitem/<int:cart_item_id>/', CartItemAPIView.as_view()),
     path('api/v1/cartitem/increase/<int:cart_item_id>/', CartItemIncreaseAPIView.as_view()),
@@ -83,6 +85,7 @@ urlpatterns = [
     path('api/v1/feedback/', FeedbackAPIView.as_view()),
 
     path('api/v1/orders/', OrdersAPIView.as_view()),
+    path('api/v1/orders/<int:pk>', OrderAPIView.as_view()),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

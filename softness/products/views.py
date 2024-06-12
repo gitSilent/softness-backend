@@ -10,8 +10,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Product
-from .serializers import ProductSerializer
+from .models import Product, Work
+from .serializers import ProductSerializer, WorksSerializer
 
 
 # Create your views here.
@@ -83,5 +83,17 @@ class ProductAPIView(APIView):
     def get(self,request, pk):
         product = self.get_object(pk)
         serializer = ProductSerializer(product, context={'request': request})
+        return Response(serializer.data)
+
+class WorksAPIView(APIView):
+
+    @extend_schema(
+        request=None,
+        responses={200: ProductSerializer},
+        tags=['products']
+    )
+    def get(self,request):
+        works = Work.objects.all()
+        serializer = WorksSerializer(works, many=True, context={'request': request})
         return Response(serializer.data)
 
